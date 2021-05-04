@@ -40,5 +40,3 @@ module.exports = (app) => {
   });
 };
 
-/* GET /players/: retorna el llistat de tots els jugadors del sistema amb el seu percentatge mig d’èxits
-GET /players/{id}/games: retorna el llistat de jugades per un jugador. */
