@@ -1,8 +1,5 @@
 // Connection Data for Mongodabase
 
 module.exports = {
-    HOST: "localhost",
-    USER: "visitor",
-    PASSWORD: "netnet44",
-    DB: "dadosGame",
-  };
+  url: "mongodb://localhost:27017/dadosGame",
+};
