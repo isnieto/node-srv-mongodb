@@ -1,5 +1,5 @@
 //  Import db.connection and Mysql Queries
-const connection = require("../config/db-connection.js");
+const connection = require("../config/db.connection.js");
 
 //  Player class and use the database connection above to add  CRUD methods:
 class Player {

@@ -17,3 +17,6 @@ const dadosGameSchema = new Schema({
 
 // Create model
 const dadosGame = mongoose.model("dadosGame", dadosGameSchema);
+
+
+module.exports = dadosGame;
