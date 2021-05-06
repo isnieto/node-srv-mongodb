@@ -1,5 +1,4 @@
 // Setting route controllers for all endpoint of th app
-//const express = require("express"); //or Router() needed;
 
 module.exports = (app) => {
   const gameController = require("../api/game.controller.js");
@@ -7,7 +6,7 @@ module.exports = (app) => {
   // ADD  a new player
   app.post("/players", gameController.createOne);
 
-  // Modify player name
+  /* // Modify player name
   app.put("/players", gameController.updateOne);
 
   // Play one Game
@@ -33,10 +32,9 @@ module.exports = (app) => {
 
   // Retrieve best player
   app.get("/players/ranking/winner", gameController.findBest);
-
+ */
   // Page not available
   app.all("*", (req, res) => {
     res.status(404).send("ERROR 404. This page is not available.");
   });
 };
-

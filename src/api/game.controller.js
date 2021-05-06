@@ -1,5 +1,4 @@
-//const { restart } = require("nodemon");
-const Game = require("../models/game.model.js");
+//const Game = require("../models/game.model.js");
 const Player = require("../models/player.model.js");
 const playGame = require("../services/games.services.js");
 
@@ -36,7 +35,7 @@ module.exports = {
       }
     }
   },
-  // Update name of player by ID
+ /*  // Update name of player by ID
   updateOne: async (req, res) => {
     // if no playerid or empty return error.
     if (Object.keys(req.body).length === 0 || !req.body.playerid) {
@@ -176,5 +175,5 @@ module.exports = {
         res.status(400).json({ message: e });
       }
     }
-  },
+  }, */
 }; // End Module

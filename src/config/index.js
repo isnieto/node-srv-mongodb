@@ -1,9 +1,14 @@
-// gather our variables from .env file and map them into well-named variables and export them through a module.
-// under 'config/index.js
+const dbConfig = require("../config/db.config.js");
 
-const dotenv = require('dotenv');
-dotenv.config();
+const mongoose = require("mongoose");
 
-module.exports = {
-  PORT: process.env.PORT || 5000,
+//mongoose.Promise = global.Promise;
+
+const db = {
+  mongoose : mongoose,
+  url: dbConfig.url,
+  game: require("./game.model.js")(mongoose)
+
 };
+
+module.exports = db;
