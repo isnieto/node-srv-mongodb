@@ -1,5 +1,4 @@
-//  Import db.connection and Mysql Queries
-//const connDb = require("../config/db.connection.js");
+// Load modules: model for database and functions for the gameplay
 const gamePlayer = require("../models/game.model.js");
 const countPlayers = require("../services/games.services.js");
 
@@ -27,7 +26,8 @@ class Player {
   static async newPlayer(playerName) {
     const newplayer = new gamePlayer({
       _id: 1,
-      nickName: `${playerName}`,
+      //nickName: `${playerName}`,
+      nickName: "manolito"
     });
     newplayer.save((err, res) => {
       if (err) {

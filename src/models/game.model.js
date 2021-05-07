@@ -2,8 +2,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-
-const gameSchema = new Schema({
+const schema = new Schema({
   _id: { type: Number, required: true },
   nickName: String,
   registeredAt: { type: Date, default: Date.now },
@@ -14,11 +13,8 @@ const gameSchema = new Schema({
       score: { type: Number, min: 0, max: 12, required: true },
       result: Boolean,
     },
-  ] 
+  ],
 });
 
-// Create model
-const gamePlayer = mongoose.model("gamePlayer", gameSchema);
-
-
-module.exports = gamePlayer;
+// Create model and exports it
+module.exports = mongoose.model("gamePlayer", schema);

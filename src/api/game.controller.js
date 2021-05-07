@@ -1,4 +1,3 @@
-//const Game = require("../models/game.model.js");
 const Player = require("../models/player.model.js");
 const playGame = require("../services/games.services.js");
 
@@ -16,7 +15,12 @@ module.exports = {
       await Player.newPlayer("Anonimo");
       res.status(201).json({ message: "New player added as ANONIMUS" });
     } else {
-      try {
+
+        await Player.newPlayer(req.body.name);
+          res.status(201).json({
+            message: `New player '${req.body.name}' succesfully added in database.`,
+          });
+      /* try {
         checked = await Player.checkIfPlayerExists(req.body.name).catch(
           (e) => e
         );
@@ -32,7 +36,7 @@ module.exports = {
         }
       } catch (e) {
         res.status(500).json({ message: e });
-      }
+      } */
     }
   },
 
@@ -41,7 +45,7 @@ module.exports = {
       const results = await Player.getAllPlayers();
       res.status(200).send(results);
     } catch (e) {
-      console.log(e.message);
+      console.log("no hace nada");
       res.sendStatus(500);
     }
   },
