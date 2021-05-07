@@ -7,9 +7,6 @@ const { PORT } = require("./config/index.js");
 
 require("./routes/game.routes.js")(app);
 
-
-
- 
 app.listen(PORT, () => {
   console.log("Server started and running on port: " + PORT);
   if (conn){

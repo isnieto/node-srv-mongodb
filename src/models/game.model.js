@@ -3,8 +3,8 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 
-const dadosGameSchema = new Schema({
-  playerId: { type: Number, required: true },
+const gameSchema = new Schema({
+  _id: { type: Number, required: true },
   nickName: String,
   registeredAt: { type: Date, default: Date.now },
   games: [
@@ -18,7 +18,7 @@ const dadosGameSchema = new Schema({
 });
 
 // Create model
-const dadosGame = mongoose.model("dadosGame", dadosGameSchema);
+const gamePlayer = mongoose.model("gamePlayer", gameSchema);
 
 
-module.exports = dadosGame;
+module.exports = gamePlayer;

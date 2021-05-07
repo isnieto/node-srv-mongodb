@@ -6,26 +6,17 @@ const db = require("../models");
 
 const connection = async () => {
   try {
-    await db.mongoose.connect(db.url, {
+    await db.mongoose.connect(db.uri, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
-    }).then(() => {
-      console.log("Connected to the database!");
-    })
-    .catch((err) => {
-      console.log("Cannot connect to the database!", err);
-      process.exit();
+      useCreateIndex: true,
+      autoIndex: false, // Don't build indexes
     });
   } catch (err) {
     console.log(err);
     process.exit(1);
   }
 
-  const database = mongoose.connection;
-  database.on("error", console.error.bind(console, "connection error:")); // enlaza el track de error a la consola (proceso actual)
-  database.once("open", () => {
-  console.log("connected"); // si esta todo ok, imprime esto
-  });
 };
 
 module.exports = connection;
