@@ -35,6 +35,16 @@ module.exports = {
       }
     }
   },
+
+  findAll: async (req, res) => {
+    try {
+      const results = await Player.getAllPlayers();
+      res.status(200).send(results);
+    } catch (e) {
+      console.log(e.message);
+      res.sendStatus(500);
+    }
+  },
  /*  // Update name of player by ID
   updateOne: async (req, res) => {
     // if no playerid or empty return error.
@@ -83,15 +93,7 @@ module.exports = {
     }
   },
 
-  findAll: async (req, res) => {
-    try {
-      const results = await Player.getAllPlayers();
-      res.status(200).send(results);
-    } catch (e) {
-      console.log(e.message);
-      res.sendStatus(500);
-    }
-  },
+ 
 
   //Retrieve a single object
   findOne: async (req, res) => {

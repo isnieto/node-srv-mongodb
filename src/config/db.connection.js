@@ -24,7 +24,7 @@ const connection = async () => {
   const database = mongoose.connection;
   database.on("error", console.error.bind(console, "connection error:")); // enlaza el track de error a la consola (proceso actual)
   database.once("open", () => {
-    console.log("connected"); // si esta todo ok, imprime esto
+  console.log("connected"); // si esta todo ok, imprime esto
   });
 };
 

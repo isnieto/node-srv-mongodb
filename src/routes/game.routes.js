@@ -6,6 +6,9 @@ module.exports = (app) => {
   // ADD  a new player
   app.post("/players", gameController.createOne);
 
+  // Retrieve all players from database FALTA percentage mig
+  app.get("/players/", gameController.findAll);
+
   /* // Modify player name
   app.put("/players", gameController.updateOne);
 
@@ -15,8 +18,7 @@ module.exports = (app) => {
   // Delete a Playger with playerId
   app.delete("/players/:playerId/games", gameController.deleteAll);
 
-  // Retrieve all players from database FALTA percentage mig
-  app.get("/players/", gameController.findAll);
+  
 
   // Retrieve a single player score list
   app.get("/players/:playerId/games", gameController.gamesAll);
