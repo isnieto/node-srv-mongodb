@@ -15,10 +15,7 @@ module.exports = {
       await Player.newPlayer("Anonimo").catch((e) => e);
       res.status(201).json({ message: "New player added as ANONIMUS" });
     } else {
-
-        await Player.newPlayer(req.body.name).catch((e) => e);
-        res.status(201).json({message: `New player '${req.body.name}' succesfully added in database.`});
-      /* try {
+      try {
         checked = await Player.checkIfPlayerExists(req.body.name).catch(
           (e) => e
         );
@@ -34,7 +31,7 @@ module.exports = {
         }
       } catch (e) {
         res.status(500).json({ message: e });
-      } */
+      }
     }
   },
 
@@ -47,7 +44,7 @@ module.exports = {
       res.sendStatus(500);
     }
   },
- /*  // Update name of player by ID
+  /*  // Update name of player by ID
   updateOne: async (req, res) => {
     // if no playerid or empty return error.
     if (Object.keys(req.body).length === 0 || !req.body.playerid) {

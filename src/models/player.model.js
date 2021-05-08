@@ -30,8 +30,7 @@ class Player {
     });
     console.log(player)
     try {
-      const res = await player.save().then(() => console.log('meow'));
-      console.log(`res dice: ${res}`);
+      const res = await player.save();
       return res
     } catch (error) {
       return error;

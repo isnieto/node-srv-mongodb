@@ -1,6 +1,6 @@
 //Create the collection Schema for mongo
 const mongoose = require("mongoose");
-//const Schema = mongoose.Schema;
+const Schema = mongoose.Schema;
 
 /* const schema = new Schema({
   _id: { type: Number, required: true },
@@ -15,12 +15,8 @@ const mongoose = require("mongoose");
     },
   ],
 }); */
-
-
-const kittySchema = new mongoose.Schema({
-  name: String
-});
-
-const Kitten = mongoose.model('Kitten', kittySchema);
+const schema = new Schema({nickName: String});
 // Create model and exports it
-module.exports = Kitten;
+module.exports = mongoose.model("gamePlayer", {nickName: String});
+
+
