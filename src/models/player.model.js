@@ -24,31 +24,21 @@ class Player {
 
   // Create new Player after counting how many palyer to assign to idNr.
   static async newPlayer(playerName) {
-    return new Promise((resolve, reject) => {
+    try {
       const player = new gamePlayer({
         nickName: `${playerName}`,
       });
 
-      player.save((err, res) => {
+      gamePlayer.create(player, (err, res) => {
         if (err) {
-          reject(err);
-        }
-        resolve(res);
-      });
-    });
-  }
-
-  // Get all data from players
-  static getAllPlayers() {
-    return new Promise((resolve, reject) => {
-      gamePlayer.find({}, (err, res) => {
-        if (err) {
-          reject(false);
+          return err;
         } else {
-          resolve(true);
+          return res.status(200);
         }
       });
-    });
+    } catch (error) {
+      return error;
+    }
   }
 } // END CLass Game
 

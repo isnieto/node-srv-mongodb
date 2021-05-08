@@ -2,22 +2,28 @@
 const mongoose = require("mongoose");
 const mongoUri = require("./db.config");
 
-
-const connection = async () => {
+const connection = async (mongoUri) => {
   try {
-    await mongoose.connect(mongoURI, {useNewUrlParser: true, useUnifiedTopology: true});
-    // CONNECTION EVENTS
-    // When successfully connected
-    mongoose.connection.on('connected', function () {
-      console.log('Mongoose default connection open to ' + mongoURI);
-    }); 
-  } catch (err) {
-    console.log(err);
+    await mongoose.connect(mongoUri, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useCreateIndex: true,
+    });
+  } catch (error) {
+    console.log(error.message);
     process.exit(1);
   }
-
 };
 
+if (connection) {
+  console.log("Conection established with " + JSON.stringify(mongoUri));
+}
+
+const db = mongoose.connection;
+
+db.on('error', console.error.bind(console, 'connection error:')); // enlaza el track de error a la consola (proceso actual)
+db.once('open', () => {
+  console.log('connected'); // si esta todo ok, imprime esto
+});
+
 module.exports = connection;
-
-

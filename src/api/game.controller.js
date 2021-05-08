@@ -12,14 +12,12 @@ module.exports = {
       req.body.name === "" ||
       req.body.name === " "
     ) {
-      await Player.newPlayer("Anonimo");
+      await Player.newPlayer("Anonimo").catch((e) => e);
       res.status(201).json({ message: "New player added as ANONIMUS" });
     } else {
 
-        await Player.newPlayer(req.body.name);
-          res.status(201).json({
-            message: `New player '${req.body.name}' succesfully added in database.`,
-          });
+        await Player.newPlayer(req.body.name).catch((e) => e);
+        res.status(201).json({message: `New player '${req.body.name}' succesfully added in database.`});
       /* try {
         checked = await Player.checkIfPlayerExists(req.body.name).catch(
           (e) => e

@@ -1,13 +1,14 @@
 // Setting route controllers for all endpoint of th app
+const gameController = require("../api/game.controller.js");
 
 module.exports = (app) => {
-  const gameController = require("../api/game.controller.js");
+  
 
   // ADD  a new player
   app.post("/players", gameController.createOne);
 
   // Retrieve all players from database FALTA percentage mig
-  app.get("/players/", gameController.findAll);
+  //app.get("/players/", gameController.findAll);
 
   /* // Modify player name
   app.put("/players", gameController.updateOne);

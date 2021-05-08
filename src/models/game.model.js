@@ -15,8 +15,6 @@ const Schema = mongoose.Schema;
     },
   ],
 }); */
-const schema = new Schema({nickName: String});
+const schema = new Schema({ nickName: String });
 // Create model and exports it
 module.exports = mongoose.model("gamePlayer", schema);
-
-
