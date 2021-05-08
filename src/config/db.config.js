@@ -2,5 +2,5 @@
 
 module.exports = {
   //uri: "mongodb://localhost:27017",
-  mongoURI : 'mongodb://localhost:27017/game' 
+  mongoURI: "mongodb://localhost:27017/game",
 };
