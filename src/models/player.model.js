@@ -24,18 +24,20 @@ class Player {
 
   // Create new Player after counting how many palyer to assign to idNr.
   static async newPlayer(playerName) {
-    const newplayer = new gamePlayer({
-      _id: 1,
-      //nickName: `${playerName}`,
-      nickName: "manolito"
-    });
-    newplayer.save((err, res) => {
-      if (err) {
-        return err;
-      }
-      return res;
+    return new Promise((resolve, reject) => {
+      const player = new gamePlayer({
+        nickName: `${playerName}`,
+      });
+
+      player.save((err, res) => {
+        if (err) {
+          reject(err);
+        }
+        resolve(res);
+      });
     });
   }
+
   // Get all data from players
   static getAllPlayers() {
     return new Promise((resolve, reject) => {

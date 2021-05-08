@@ -1,20 +1,24 @@
 // Bring Mongoose into the app 
-var mongoose = require( 'mongoose' ); 
+const mongoose = require( 'mongoose' ); 
  
 // Build the connection string 
-var dbURI = 'mongodb://localhost:27017/dadosGame'; 
+const mongoURI = 'mongodb://localhost:27017/animals'; 
+mongoose.connect(mongoURI, {useNewUrlParser: true, useUnifiedTopology: true});
 
-mongoose.connect(dbURI, {
+mongoose.connect(mongoURI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
-// Create the database connection 
-//mongoose.connect(dbURI); 
+
+    const Cat = mongoose.model('Cat', { name: String });
+
+    const kitty = new Cat({ name: 'Zildjian' });
+    kitty.save().then(() => console.log('meow'));
 
 // CONNECTION EVENTS
 // When successfully connected
 mongoose.connection.on('connected', function () {
-  console.log('Mongoose default connection open to ' + dbURI);
+  console.log('Mongoose default connection open to ' + mongoURI);
 }); 
   
 // If the connection throws an error

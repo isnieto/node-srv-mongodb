@@ -2,7 +2,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const schema = new Schema({
+/* const schema = new Schema({
   _id: { type: Number, required: true },
   nickName: String,
   registeredAt: { type: Date, default: Date.now },
@@ -14,7 +14,9 @@ const schema = new Schema({
       result: Boolean,
     },
   ],
-});
-
+}); */
+const schema = new Schema({nickName: String});
 // Create model and exports it
 module.exports = mongoose.model("gamePlayer", schema);
+
+
