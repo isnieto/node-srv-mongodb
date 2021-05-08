@@ -1,6 +1,7 @@
 // Load modules: model for database and functions for the gameplay
 const gamePlayer = require("../models/game.model.js");
 const countPlayers = require("../services/games.services.js");
+const conn = require("../config/db.connection")
 
 //  Player class and use the database connection above to add  CRUD methods:
 class Player {
@@ -24,18 +25,14 @@ class Player {
 
   // Create new Player after counting how many palyer to assign to idNr.
   static async newPlayer(playerName) {
+    const player = new gamePlayer({
+      name: `${playerName}`,
+    });
+    console.log(player)
     try {
-      const player = new gamePlayer({
-        nickName: `${playerName}`,
-      });
-
-      gamePlayer.create(player, (err, res) => {
-        if (err) {
-          return err;
-        } else {
-          return res.status(200);
-        }
-      });
+      const res = await player.save().then(() => console.log('meow'));
+      console.log(`res dice: ${res}`);
+      return res
     } catch (error) {
       return error;
     }
