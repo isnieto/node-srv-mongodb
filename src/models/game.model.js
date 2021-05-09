@@ -16,11 +16,19 @@ const mongoose = require("mongoose");
   ],
 }); */
 
-
-const kittySchema = new mongoose.Schema({
-  name: String
+const playerSchema = new mongoose.Schema({
+  playerId: Number,
+  nickName: String,
+  registeredAt: { type: Date, default: Date.now },
+  games: [
+    {
+      gameDate: { type: Date, default: Date.now },
+      score: { type: Number, min: 0, max: 12, required: true },
+      result: Boolean,
+    },
+  ],
 });
 
-const Kitten = mongoose.model('Kitten', kittySchema);
+const GamePlayer = mongoose.model("GamePlayer", playerSchema);
 // Create model and exports it
-module.exports = Kitten;
+module.exports = GamePlayer;

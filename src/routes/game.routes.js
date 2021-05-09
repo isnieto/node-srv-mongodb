@@ -7,8 +7,11 @@ module.exports = (app) => {
   // ADD  a new player
   app.post("/players", gameController.createOne);
 
+  // ADD  a new player
+  //app.get("/players/counter", gameController.count);
+
   // Retrieve all players from database FALTA percentage mig
-  //app.get("/players/", gameController.findAll);
+  app.get("/players/", gameController.findAll);
 
   /* // Modify player name
   app.put("/players", gameController.updateOne);
@@ -18,8 +21,6 @@ module.exports = (app) => {
 
   // Delete a Playger with playerId
   app.delete("/players/:playerId/games", gameController.deleteAll);
-
-  
 
   // Retrieve a single player score list
   app.get("/players/:playerId/games", gameController.gamesAll);
@@ -36,6 +37,7 @@ module.exports = (app) => {
   // Retrieve best player
   app.get("/players/ranking/winner", gameController.findBest);
  */
+
   // Page not available
   app.all("*", (req, res) => {
     res.status(404).send("ERROR 404. This page is not available.");
