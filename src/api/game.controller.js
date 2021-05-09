@@ -47,7 +47,7 @@ module.exports = {
       res.status(500).json({ message: e });
     }
   },
-  /*  // Update name of player by ID
+  // Update name of player by ID
   updateOne: async (req, res) => {
     // if no playerid or empty return error.
     if (Object.keys(req.body).length === 0 || !req.body.playerid) {
@@ -83,7 +83,7 @@ module.exports = {
       }
     }
   },
-
+  /*  
   playOneGame: async (req, res, next) => {
     try {
       let playerId = req.params.playerId;

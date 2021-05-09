@@ -40,9 +40,21 @@ class Player {
     }
   }
 
+  // Retrieve list of all players
   static async getAllPlayers() {
     try {
       let res = await GamePlayer.find({})
+      return res
+    }  catch (error) {
+      return error;
+    }
+  }
+
+
+  // Modify Name of a player
+  static async updateName(playerId, newName) {
+    try {
+      let res = GamePlayer.updateOne({"playerId" : playerId}, {$set: { "nickName" : newName}});
       return res
     }  catch (error) {
       return error;

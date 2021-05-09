@@ -13,9 +13,10 @@ module.exports = (app) => {
   // Retrieve all players from database FALTA percentage mig
   app.get("/players/", gameController.findAll);
 
-  /* // Modify player name
+  // Modify player name
   app.put("/players", gameController.updateOne);
-
+  
+  /*
   // Play one Game
   app.post("/players/:playerId/games/", gameController.playOneGame);
 
