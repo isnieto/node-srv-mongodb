@@ -20,6 +20,9 @@ module.exports = {
           (e) => e
         );
         if (checked) {
+          // Count number of players in DB to set playerId
+          //let playerID = await Player.countPlayers();
+          //console.log(playerID)
           await Player.newPlayer(req.body.name);
           res.status(201).json({
             message: `New player '${req.body.name}' succesfully added in database.`,
@@ -35,13 +38,13 @@ module.exports = {
     }
   },
 
+  // Retrieve all players from database FALTA percentage mig
   findAll: async (req, res) => {
     try {
       const results = await Player.getAllPlayers();
       res.status(200).send(results);
     } catch (e) {
-      console.log("no hace nada");
-      res.sendStatus(500);
+      res.status(500).json({ message: e });
     }
   },
   /*  // Update name of player by ID

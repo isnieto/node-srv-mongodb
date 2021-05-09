@@ -19,4 +19,19 @@ const schema = new Schema({nickName: String});
 // Create model and exports it
 module.exports = mongoose.model("gamePlayer", {nickName: String});
 
+const playerSchema = new mongoose.Schema({
+  playerId: Number,
+  nickName: String,
+  registeredAt: { type: Date, default: Date.now },
+  games: [
+    {
+      gameDate: { type: Date, default: Date.now },
+      score: { type: Number, min: 0, max: 12, required: true },
+      result: Boolean,
+    },
+  ],
+});
 
+const GamePlayer = mongoose.model("GamePlayer", playerSchema);
+// Create model and exports it
+module.exports = GamePlayer;
