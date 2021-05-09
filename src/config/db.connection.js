@@ -1,7 +1,7 @@
 // Create database connection
 const mongoose = require("mongoose");
 const mongodb_uri = require("./db.config");
-
+console.log(mongodb_uri)
 const connection = mongoose.connect(mongodb_uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,

@@ -1,5 +1,5 @@
 // Setting route controllers for all endpoint of th app
-const gameController = require("../api/game.controller.js");
+const gameController = require("./game.controller.js");
 
 module.exports = (app) => {
   

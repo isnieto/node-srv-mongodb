@@ -5,7 +5,7 @@ const { PORT } = require("./config/index.js");
 // Confirm connection
 const conn = require("./config/db.connection")
 // IMport app module
-require("./routes/game.routes.js")(app);
+require("./api/game.routes.js")(app);
 
 
 // Listen to server and connection established
