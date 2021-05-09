@@ -44,7 +44,7 @@ const playerSchema = new mongoose.Schema({
   games: [
     {
       gameDate: { type: Date, default: Date.now },
-      score: { type: Number, min: 0, max: 12, required: true },
+      score: Number,
       result: Boolean,
     },
   ],

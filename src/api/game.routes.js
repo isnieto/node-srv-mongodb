@@ -16,12 +16,13 @@ module.exports = (app) => {
   // Modify player name
   app.put("/players", gameController.updateOne);
   
-  /*
+  // Delete a Playger with playerId
+  //app.delete("/players/:playerId/games", gameController.deletePlayerById);
+
   // Play one Game
   app.post("/players/:playerId/games/", gameController.playOneGame);
 
-  // Delete a Playger with playerId
-  app.delete("/players/:playerId/games", gameController.deleteAll);
+  /* 
 
   // Retrieve a single player score list
   app.get("/players/:playerId/games", gameController.gamesAll);
@@ -36,8 +37,8 @@ module.exports = (app) => {
   app.get("/players/ranking/loser", gameController.findWorst);
 
   // Retrieve best player
-  app.get("/players/ranking/winner", gameController.findBest);
- */
+  app.get("/players/ranking/winner", gameController.findBest); */
+ 
 
   // Page not available
   app.all("*", (req, res) => {

@@ -21,8 +21,6 @@ module.exports = {
         );
         if (checked) {
           // Count number of players in DB to set playerId
-          //let playerID = await Player.countPlayers();
-          //console.log(playerID)
           await Player.newPlayer(req.body.name);
           res.status(201).json({
             message: `New player '${req.body.name}' succesfully added in database.`,
@@ -47,25 +45,27 @@ module.exports = {
       res.status(500).json({ message: e });
     }
   },
+
   // Update name of player by ID
   updateOne: async (req, res) => {
     // if no playerid or empty return error.
-    if (Object.keys(req.body).length === 0 || !req.body.playerid) {
-      res.status(400).send({ message: "Sorry, playerID needed to update!" });
+    if (Object.keys(req.body).length === 0 || !req.body.playerId) {
+      res.status(400).send({ message: "Sorry, playerNr needed to update!" });
     } else {
       try {
         // Check if playerid in database
-        let idExist = false;
-        idExist = await Player.checkIfIdExists(req.body.playerid).catch(
+        //let nrExist = false;
+        const nrExist = await Player.checkIfPlayerNr(req.body.playerId).catch(
           (e) => e
         );
-        if (!idExist) {
+      
+        if (nrExist === null) {
           res.status(400).json({ message: "Sorry, PlayerId is not correct." });
         } else {
           // Update playername
           let result = false;
           result = await Player.updateName(
-            req.body.playerid,
+            req.body.playerId,
             req.body.newName
           ).catch((e) => e);
           if (result) {
@@ -83,19 +83,44 @@ module.exports = {
       }
     }
   },
-  /*  
-  playOneGame: async (req, res, next) => {
+
+  playOneGame: async (req, res) => {
     try {
       let playerId = req.params.playerId;
-      let score = await playGame();
-      await Game.addScore(playerId, score);
+      console.log(playerId)
+      let results = await playGame();
+      console.log(results);
+      await Player.addScore(playerId, results);
       res.status(201).json({ message: "New game added!" });
     } catch (e) {
       res.status(404).json({ error: e });
     }
   },
+  /*  
+  
 
- 
+ // Delete one player by ID
+  deletePlayerById: async (req, res) => {
+    // Check if playerid in database
+    let playerIdExist = false;
+    playerIdExist = await Player.checkIfIdExists(req.params.playerId).catch(
+      (e) => e
+    );
+    if (!playerIdExist) {
+      res.status(400).json({ message: "Sorry, PlayerId is not correct." });
+    } else {
+      try {
+        const results = await Game.deleteGames(req.params.playerId);
+        res
+          .status(200)
+          .json({
+            message: `All games from playerID ${req.params.playerId} deleted`,
+          });
+      } catch (e) {
+        res.status(400).json({ message: e });
+      }
+    }
+  },
 
   //Retrieve a single object
   findOne: async (req, res) => {
@@ -158,26 +183,5 @@ module.exports = {
     }
   },
 
-  // Delete one player by ID
-  deleteAll: async (req, res) => {
-    // Check if playerid in database
-    let playerIdExist = false;
-    playerIdExist = await Player.checkIfIdExists(req.params.playerId).catch(
-      (e) => e
-    );
-    if (!playerIdExist) {
-      res.status(400).json({ message: "Sorry, PlayerId is not correct." });
-    } else {
-      try {
-        const results = await Game.deleteGames(req.params.playerId);
-        res
-          .status(200)
-          .json({
-            message: `All games from playerID ${req.params.playerId} deleted`,
-          });
-      } catch (e) {
-        res.status(400).json({ message: e });
-      }
-    }
-  }, */
+   */
 }; // End Module
