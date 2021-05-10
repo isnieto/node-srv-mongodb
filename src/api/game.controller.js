@@ -49,21 +49,19 @@ module.exports = {
   // Update name of player by ID
   updateOne: async (req, res) => {
     // if no playerid or empty return error.
-    if (Object.keys(req.body).length === 0 || !req.body.playerId) {
+    if (Object.keys(req.body).length === 0 || !req.params.playerId) {
       res.status(400).send({ message: "Sorry, playerNr needed to update!" });
     } else {
       try {
         // Check if playerid in database
-        let checked = await Player.checkIfPlayerNr(req.body.playerId).catch(
-          (e) => e
-        );
+        let checked = await Player.checkIfPlayerNr(req.params.playerId);
         if (checked === false) {
           res.status(400).json({ message: "Sorry, PlayerId is not correct." });
         } else {
           // Update playername
           let result = false;
           result = await Player.updateName(
-            req.body.playerId,
+            req.params.playerId,
             req.body.newName
           ).catch((e) => e);
           if (result) {
@@ -109,51 +107,19 @@ module.exports = {
   //Retrieve a single object
   findOne: async (req, res) => {
     // if no playerid or empty return error.
-    if (!req.param.playerId) {
+    if (!req.params.playerId) {
       res.status(400).send({ message: "Sorry, playerNr needed to show data!" });
     } else {
       try {
         // Check if playerid in database
-        const nrExist = await Player.checkIfPlayerNr(req.param.playerId).catch(
+        let checked = await Player.checkIfPlayerNr(req.params.playerId).catch(
           (e) => e
         );
-
-        if (nrExist === null) {
+        if (checked === false) {
           res.status(400).json({ message: "Sorry, PlayerId is not correct." });
         } else {
           // Update playername
-          let data = await Player.findById(req.param.playerId).catch((e) => e);
-          if (data) {
-            res.status(200).send(data);
-          } else {
-            res.status(404).json({
-              message: "Sorry, Name could not be updated! Id not correct.",
-            });
-          }
-        }
-      } catch (e) {
-        res.status(500).json({ message: e });
-      }
-    }
-  },
-
-  //Retrieve a single object
-  findOne: async (req, res) => {
-    // if no playerid or empty return error.
-    if (!req.param.playerId) {
-      res.status(400).send({ message: "Sorry, playerNr needed to show data!" });
-    } else {
-      try {
-        // Check if playerid in database
-        const nrExist = await Player.checkIfPlayerNr(req.param.playerId).catch(
-          (e) => e
-        );
-
-        if (nrExist === null) {
-          res.status(400).json({ message: "Sorry, PlayerId is not correct." });
-        } else {
-          // Update playername
-          let data = await Player.findById(req.param.playerId).catch((e) => e);
+          let data = await Player.findById(req.params.playerId).catch((e) => e);
           if (data) {
             res.status(200).send(data);
           } else {
@@ -171,23 +137,23 @@ module.exports = {
   // Delete one player by ID
   deletePlayerById: async (req, res) => {
     // Check if playerid in database
-    if (Object.keys(req.body).length === 0 || !req.body.playerId) {
+    if (!req.params.playerId) {
       res.status(400).send({ message: "Sorry, playerNr needed to update!" });
     } else {
       try {
         // Check if playerid in database
-        let checked = await Player.checkIfPlayerNr(req.body.playerId).catch(
+        let checked = await Player.checkIfPlayerNr(req.params.playerId).catch(
           (e) => e
         );
         if (checked === false) {
           res.status(400).json({ message: "Sorry, PlayerId is not correct." });
         } else {
           // Check if playerid in database
-          const results = await Player.deleteGames(req.body.playerId);
+          const results = await Player.deleteGames(req.params.playerId);
           console.log("los results son " + results);
           res.status(200).json({
             data: results,
-            message: `All games from playerID ${req.body.playerId} deleted`,
+            message: `All games from playerID ${req.params.playerId} deleted`,
           });
         }
       } catch (e) {
