@@ -7,9 +7,6 @@ module.exports = (app) => {
   // ADD  a new player
   app.post("/players", gameController.createOne);
 
-  // ADD  a new player
-  //app.get("/players/counter", gameController.count);
-
   // Retrieve all players from database FALTA percentage mig
   app.get("/players/", gameController.findAll);
 
@@ -17,7 +14,7 @@ module.exports = (app) => {
   app.put("/players", gameController.updateOne);
   
   // Delete a Playger with playerId
-  //app.delete("/players/:playerId/games", gameController.deletePlayerById);
+  app.delete("/players/:playerId/games", gameController.deletePlayerById);
 
   // Play one Game
   app.post("/players/:playerId/games/", gameController.playOneGame);

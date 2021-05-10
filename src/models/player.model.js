@@ -1,6 +1,5 @@
 // Load modules: model for database and functions for the gameplay
-const GamePlayer = require("../models/game.model.js");
-const countPlayers = require("../services/games.services.js");
+const GamePlayer = require("./gameplay.model.js");
 const conn = require("../config/db.connection");
 
 //  Player class and use the database connection above to add  CRUD methods:
@@ -79,7 +78,7 @@ class Player {
   // Player plays one Game
   static async addScore(playerId, results) {
     try {
-      const scores = {"score": results[0], "result": results[1]};
+      const scores = { score: results[0], result: results[1] };
       let res = GamePlayer.updateOne(
         { playerId: playerId },
         { $push: { games: scores } }
@@ -91,17 +90,31 @@ class Player {
   }
 
   //Retrieve a single object
-  static async findById(playerId){
+  static async findById(playerId) {
     try {
-      let res = await GamePlayer.findOne({playerId: playerId});
+      let res = await GamePlayer.findOne({ playerId: playerId });
       return res;
     } catch (error) {
       return error;
     }
   }
-
-
-
+  //Delete all score of a single player
+  static async deleteGames(playerId) {
+    console.log("esta en DeleteGames con " + playerId)
+    try {
+      const gamesToDelete = GamePlayer.find({ playerId: playerId });
+      console.log("games to Delete dice " + gamesToDelete);
+      
+      //gamesToDelete.splice(2, 1);
+      let res = await  GamePlayer.updateOne(
+        { playerId: playerId },
+        { $set: { games: [] } }
+      );
+      return res;
+    } catch (error) {
+      return error;
+    }
+  }
 } // END CLass Game
 
 // Export
