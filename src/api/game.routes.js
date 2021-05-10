@@ -22,13 +22,15 @@ module.exports = (app) => {
   // Play one Game
   app.post("/players/:playerId/games/", gameController.playOneGame);
 
+  // Retrieve all scores from one player.
+   app.get("/players/:playerId/games", gameController.findOne);
+
   /* 
 
   // Retrieve a single player score list
   app.get("/players/:playerId/games", gameController.gamesAll);
 
-  // Retrieve a single player data by playerId
-  app.get("/players/:playerId", gameController.findOne);
+ 
 
   // Retrieve average ranking of all  players
   app.get("/players/ranking/all", gameController.findRanking);

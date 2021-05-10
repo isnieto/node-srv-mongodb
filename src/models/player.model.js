@@ -50,15 +50,16 @@ class Player {
 
   // Check if PlayerNr already exists in database
   static async checkIfPlayerNr(number) {
-    let query = GamePlayer.where({ playerId: number });
-    query.findOne(function (err, res) {
-      // If Name no exists response is false
-      console.log(res);
-      if (err) {
-        return err;
-      } else {
-        return res;
-      }
+    return new Promise((reject, resolve) => {
+      let query = GamePlayer.where({ playerId: number });
+      query.findOne(function (err, res) {
+        // If Name no exists response is false
+        if (err || res === null) {
+          reject(false);
+        } else {
+          resolve(true);
+        }
+      });
     });
   }
 
@@ -83,13 +84,24 @@ class Player {
         { playerId: playerId },
         { $push: { games: scores } }
       );
-      console.log(res);
       return res;
-      
     } catch (error) {
       return error;
     }
   }
+
+  //Retrieve a single object
+  static async findById(playerId){
+    try {
+      let res = await GamePlayer.findOne({playerId: playerId});
+      return res;
+    } catch (error) {
+      return error;
+    }
+  }
+
+
+
 } // END CLass Game
 
 // Export
