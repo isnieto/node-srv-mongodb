@@ -115,6 +115,19 @@ class Player {
       return error;
     }
   }
+
+  //Retrieve a single object
+  static async findById(playerId){
+    try {
+      let res = await GamePlayer.findOne({playerId: playerId});
+      return res;
+    } catch (error) {
+      return error;
+    }
+  }
+
+
+
 } // END CLass Game
 
 // Export

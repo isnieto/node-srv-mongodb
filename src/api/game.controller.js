@@ -137,6 +137,37 @@ module.exports = {
     }
   },
 
+  //Retrieve a single object
+  findOne: async (req, res) => {
+    // if no playerid or empty return error.
+    if (!req.param.playerId) {
+      res.status(400).send({ message: "Sorry, playerNr needed to show data!" });
+    } else {
+      try {
+        // Check if playerid in database
+        const nrExist = await Player.checkIfPlayerNr(req.param.playerId).catch(
+          (e) => e
+        );
+
+        if (nrExist === null) {
+          res.status(400).json({ message: "Sorry, PlayerId is not correct." });
+        } else {
+          // Update playername
+          let data = await Player.findById(req.param.playerId).catch((e) => e);
+          if (data) {
+            res.status(200).send(data);
+          } else {
+            res.status(404).json({
+              message: "Sorry, Name could not be updated! Id not correct.",
+            });
+          }
+        }
+      } catch (e) {
+        res.status(500).json({ message: e });
+      }
+    }
+  },
+
   // Delete one player by ID
   deletePlayerById: async (req, res) => {
     // Check if playerid in database
@@ -166,6 +197,8 @@ module.exports = {
   },
 
   /*  
+
+
   // Retrieve a single player score list
   gamesAll: async (req, res) => {
     let playerIdExist = false;
