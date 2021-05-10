@@ -98,14 +98,11 @@ class Player {
       return error;
     }
   }
+  
   //Delete all score of a single player
   static async deleteGames(playerId) {
-    console.log("esta en DeleteGames con " + playerId)
     try {
       const gamesToDelete = GamePlayer.find({ playerId: playerId });
-      console.log("games to Delete dice " + gamesToDelete);
-      
-      //gamesToDelete.splice(2, 1);
       let res = await  GamePlayer.updateOne(
         { playerId: playerId },
         { $set: { games: [] } }

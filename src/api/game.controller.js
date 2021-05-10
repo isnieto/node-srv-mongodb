@@ -36,15 +36,7 @@ module.exports = {
     }
   },
 
-  // Retrieve all players from database FALTA percentage mig
-  findAll: async (req, res) => {
-    try {
-      let results = await Player.getAllPlayers();
-      res.status(200).send(results);
-    } catch (e) {
-      res.status(500).json({ message: e });
-    }
-  },
+
 
   // Update name of player by ID
   updateOne: async (req, res) => {
@@ -79,6 +71,7 @@ module.exports = {
       }
     }
   },
+  
   // Player plays a game
   playOneGame: async (req, res) => {
     // if no playerid or empty return error.
@@ -100,36 +93,6 @@ module.exports = {
         }
       } catch (e) {
         res.status(404).json({ error: e });
-      }
-    }
-  },
-
-  //Retrieve a single object
-  findOne: async (req, res) => {
-    // if no playerid or empty return error.
-    if (!req.params.playerId) {
-      res.status(400).send({ message: "Sorry, playerNr needed to show data!" });
-    } else {
-      try {
-        // Check if playerid in database
-        let checked = await Player.checkIfPlayerNr(req.params.playerId).catch(
-          (e) => e
-        );
-        if (checked === false) {
-          res.status(400).json({ message: "Sorry, PlayerId is not correct." });
-        } else {
-          // Update playername
-          let data = await Player.findById(req.params.playerId).catch((e) => e);
-          if (data) {
-            res.status(200).send(data);
-          } else {
-            res.status(404).json({
-              message: "Sorry, Name could not be updated! Id not correct.",
-            });
-          }
-        }
-      } catch (e) {
-        res.status(500).json({ message: e });
       }
     }
   },
@@ -161,6 +124,46 @@ module.exports = {
       }
     }
   },
+
+  // Retrieve all players from database FALTA percentage mig
+  findAll: async (req, res) => {
+    try {
+      let results = await Player.getAllPlayers();
+      res.status(200).send(results);
+    } catch (e) {
+      res.status(500).json({ message: e });
+    }
+  },
+
+ //Retrieve a single object
+ findOne: async (req, res) => {
+  // if no playerid or empty return error.
+  if (!req.params.playerId) {
+    res.status(400).send({ message: "Sorry, playerNr needed to show data!" });
+  } else {
+    try {
+      // Check if playerid in database
+      let checked = await Player.checkIfPlayerNr(req.params.playerId).catch(
+        (e) => e
+      );
+      if (checked === false) {
+        res.status(400).json({ message: "Sorry, PlayerId is not correct." });
+      } else {
+        // Update playername
+        let data = await Player.findById(req.params.playerId).catch((e) => e);
+        if (data) {
+          res.status(200).send(data);
+        } else {
+          res.status(404).json({
+            message: "Sorry, Name could not be updated! Id not correct.",
+          });
+        }
+      }
+    } catch (e) {
+      res.status(500).json({ message: e });
+    }
+  }
+},
 
   /*  
 

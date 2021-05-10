@@ -7,9 +7,6 @@ module.exports = (app) => {
   // ADD  a new player
   app.post("/players", gameController.createOne);
 
-  // Retrieve all players from database FALTA percentage mig
-  app.get("/players/", gameController.findAll);
-
   // Modify player name
   app.put("/players", gameController.updateOne);
   
@@ -19,15 +16,15 @@ module.exports = (app) => {
   // Play one Game
   app.post("/players/:playerId/games/", gameController.playOneGame);
 
+  // Retrieve all players from database FALTA percentage mig
+  app.get("/players/", gameController.findAll);
+
+
   // Retrieve all scores from one player.
    app.get("/players/:playerId/games", gameController.findOne);
 
-  /* 
 
-  // Retrieve a single player score list
-  app.get("/players/:playerId/games", gameController.gamesAll);
-
- 
+   /* 
 
   // Retrieve average ranking of all  players
   app.get("/players/ranking/all", gameController.findRanking);
