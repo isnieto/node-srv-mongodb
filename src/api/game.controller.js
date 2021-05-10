@@ -75,18 +75,16 @@ module.exports = {
   // Player plays a game
   playOneGame: async (req, res) => {
     // if no playerid or empty return error.
-    if (Object.keys(req.body).length === 0 || !req.body.playerId) {
+    if (!req.params.playerId) {
       res.status(400).send({ message: "Sorry, playerNr needed to update!" });
     } else {
       try {
         // Check if playerid in database
-        let checked = await Player.checkIfPlayerNr(req.body.playerId).catch(
-          (e) => e
-        );
+        let checked = await Player.checkIfPlayerNr(req.params.playerId).catch((e) => e);
         if (checked === false) {
           res.status(400).json({ message: "Sorry, PlayerId is not correct." });
         } else {
-          let playerId = req.body.playerId;
+          let playerId = req.params.playerId;
           let results = await playGame();
           await Player.addScore(playerId, results);
           res.status(201).json({ message: "New game added!" });

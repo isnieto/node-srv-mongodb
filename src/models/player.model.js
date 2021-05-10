@@ -52,7 +52,7 @@ class Player {
     return new Promise((reject, resolve) => {
       let query = GamePlayer.where({ playerId: number });
       query.findOne(function (err, res) {
-        // If Name no exists response is false
+        // If Name no exists response is null, reject with false
         if (err || res === null) {
           reject(false);
         } else {
@@ -98,12 +98,12 @@ class Player {
       return error;
     }
   }
-  
+
   //Delete all score of a single player
   static async deleteGames(playerId) {
     try {
       const gamesToDelete = GamePlayer.find({ playerId: playerId });
-      let res = await  GamePlayer.updateOne(
+      let res = await GamePlayer.updateOne(
         { playerId: playerId },
         { $set: { games: [] } }
       );
@@ -114,17 +114,14 @@ class Player {
   }
 
   //Retrieve a single object
-  static async findById(playerId){
+  static async findById(playerId) {
     try {
-      let res = await GamePlayer.findOne({playerId: playerId});
+      let res = await GamePlayer.findOne({ playerId: playerId });
       return res;
     } catch (error) {
       return error;
     }
   }
-
-
-
 } // END CLass Game
 
 // Export
