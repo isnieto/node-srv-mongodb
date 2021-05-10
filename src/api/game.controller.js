@@ -36,8 +36,6 @@ module.exports = {
     }
   },
 
-
-
   // Update name of player by ID
   updateOne: async (req, res) => {
     // if no playerid or empty return error.
@@ -153,7 +151,7 @@ module.exports = {
           res.status(200).send(data);
         } else {
           res.status(404).json({
-            message: "Sorry, Name could not be updated! Id not correct.",
+            message: "Sorry, Name could not be updated!",
           });
         }
       }

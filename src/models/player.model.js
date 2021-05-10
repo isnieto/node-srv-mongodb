@@ -90,9 +90,9 @@ class Player {
   }
 
   //Retrieve a single object
-  static async findById(playerId) {
+  static async findById(number) {
     try {
-      let res = await GamePlayer.findOne({ playerId: playerId });
+      let res = await GamePlayer.findOne( { playerId: number} ).select({nickName: 0});
       return res;
     } catch (error) {
       return error;
