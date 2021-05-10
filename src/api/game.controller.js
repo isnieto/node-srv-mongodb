@@ -16,7 +16,7 @@ module.exports = {
       res.status(201).json({ message: "New player added as ANONIMUS" });
     } else {
       try {
-        checked = await Player.checkIfPlayerExists(req.body.name).catch(
+        let checked = await Player.checkIfPlayerExists(req.body.name).catch(
           (e) => e
         );
         if (checked) {
@@ -39,7 +39,7 @@ module.exports = {
   // Retrieve all players from database FALTA percentage mig
   findAll: async (req, res) => {
     try {
-      const results = await Player.getAllPlayers();
+      let results = await Player.getAllPlayers();
       res.status(200).send(results);
     } catch (e) {
       res.status(500).json({ message: e });
@@ -54,12 +54,10 @@ module.exports = {
     } else {
       try {
         // Check if playerid in database
-        //let nrExist = false;
-        const nrExist = await Player.checkIfPlayerNr(req.body.playerId).catch(
+        let checked = await Player.checkIfPlayerNr(req.body.playerId).catch(
           (e) => e
         );
-      
-        if (nrExist === null) {
+        if (checked === false) {
           res.status(400).json({ message: "Sorry, PlayerId is not correct." });
         } else {
           // Update playername
@@ -83,17 +81,59 @@ module.exports = {
       }
     }
   },
-
+  // Player plays a game
   playOneGame: async (req, res) => {
-    try {
-      let playerId = req.params.playerId;
-      console.log(playerId)
-      let results = await playGame();
-      console.log(results);
-      await Player.addScore(playerId, results);
-      res.status(201).json({ message: "New game added!" });
-    } catch (e) {
-      res.status(404).json({ error: e });
+    // if no playerid or empty return error.
+    if (Object.keys(req.body).length === 0 || !req.body.playerId) {
+      res.status(400).send({ message: "Sorry, playerNr needed to update!" });
+    } else {
+      try {
+        // Check if playerid in database
+        let checked = await Player.checkIfPlayerNr(req.body.playerId).catch(
+          (e) => e
+        );
+        if (checked === false) {
+          res.status(400).json({ message: "Sorry, PlayerId is not correct." });
+        } else {
+          let playerId = req.params.playerId;
+          let results = await playGame();
+          await Player.addScore(playerId, results);
+          res.status(201).json({ message: "New game added!" });
+        }
+      } catch (e) {
+        res.status(404).json({ error: e });
+      }
+    }
+  },
+
+  //Retrieve a single object
+  findOne: async (req, res) => {
+    // if no playerid or empty return error.
+    if (!req.param.playerId) {
+      res.status(400).send({ message: "Sorry, playerNr needed to show data!" });
+    } else {
+      try {
+        // Check if playerid in database
+        const nrExist = await Player.checkIfPlayerNr(req.param.playerId).catch(
+          (e) => e
+        );
+
+        if (nrExist === null) {
+          res.status(400).json({ message: "Sorry, PlayerId is not correct." });
+        } else {
+          // Update playername
+          let data = await Player.findById(req.param.playerId).catch((e) => e);
+          if (data) {
+            res.status(200).send(data);
+          } else {
+            res.status(404).json({
+              message: "Sorry, Name could not be updated! Id not correct.",
+            });
+          }
+        }
+      } catch (e) {
+        res.status(500).json({ message: e });
+      }
     }
   },
   /*  
@@ -122,16 +162,7 @@ module.exports = {
     }
   },
 
-  //Retrieve a single object
-  findOne: async (req, res) => {
-    try {
-      const results = await Player.findById(req.params.playerId);
-      res.status(200).send(results);
-    } catch (e) {
-      console.log(e.message);
-      res.sendStatus(500);
-    }
-  },
+
 
   // Retrieve a single player score list
   gamesAll: async (req, res) => {
