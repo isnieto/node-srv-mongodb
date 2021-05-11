@@ -146,7 +146,7 @@ module.exports = {
         res.status(400).json({ message: "Sorry, PlayerId is not correct." });
       } else {
         // Update playername
-        let data = await Player.findById(req.params.playerId).catch((e) => e);
+        let data = await Player.findByNr(req.params.playerId).catch((e) => e);
         if (data) {
           res.status(200).send(data);
         } else {

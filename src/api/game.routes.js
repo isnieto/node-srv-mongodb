@@ -10,7 +10,7 @@ module.exports = (app) => {
   // Modify player name
   app.put("/players", gameController.updateOne);
   
-  // Delete a Playger with playerId
+  // Delete a Player with playerId
   app.delete("/players/:playerId/games", gameController.deletePlayerById);
 
   // Play one Game

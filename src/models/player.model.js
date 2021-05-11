@@ -25,7 +25,7 @@ class Player {
   // Create new Player after counting how many palyer to assign to idNr.
   static async newPlayer(playerName) {
     const player = new GamePlayer({
-      playerId: (await GamePlayer.find().countDocuments()) + 1, // add user index
+      playerId: await GamePlayer.find().countDocuments() + 1, // add user index
       nickName: `${playerName}`,
     });
     console.log(player);
@@ -40,8 +40,15 @@ class Player {
   // Retrieve list of all players
   static async getAllPlayers() {
     try {
-      let res = await GamePlayer.find({});
-      return res;
+      let rows = await GamePlayer.find();
+      // If no data in database
+      if (Object.keys(rows).length === 0 ){
+        let string = "Database empty";
+        return string;
+      }else{
+        return rows;
+      }
+      
     } catch (error) {
       return error;
     }
@@ -89,15 +96,7 @@ class Player {
     }
   }
 
-  //Retrieve a single object
-  static async findById(number) {
-    try {
-      let res = await GamePlayer.findOne( { playerId: number} ).select({nickName: 0});
-      return res;
-    } catch (error) {
-      return error;
-    }
-  }
+  
 
   //Delete all score of a single player
   static async deleteGames(playerId) {
@@ -114,9 +113,12 @@ class Player {
   }
 
   //Retrieve a single object
-  static async findById(playerId) {
+  static async findByNr(number) {
+    console.log(number)
     try {
-      let res = await GamePlayer.findOne({ playerId: playerId });
+      let res = await GamePlayer.findOne({playerId: number},
+               { playerId: 1, nickName:1,  games: 1 }
+      );
       return res;
     } catch (error) {
       return error;
