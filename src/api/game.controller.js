@@ -39,21 +39,18 @@ module.exports = {
   // Update name of player by ID
   updateOne: async (req, res) => {
     // if no playerid or empty return error.
-    if (Object.keys(req.body).length === 0 || !req.params.playerId) {
-      res.status(400).send({ message: "Sorry, playerNr needed to update!" });
+    if (Object.keys(req.body).length === 0 || !req.body.playerId) {
+      res.status(400).send({ message: "Sorry, playerId needed to update!" });
     } else {
       try {
         // Check if playerid in database
-        let checked = await Player.checkIfPlayerNr(req.params.playerId);
+        let checked = await Player.checkIfPlayerNr(req.body.playerId).catch((e) => e);;
         if (checked === false) {
-          res.status(400).json({ message: "Sorry, PlayerId is not correct." });
+          res.status(400).json({ message: "Sorry, PlayerId is NOT correct." });
         } else {
           // Update playername
           let result = false;
-          result = await Player.updateName(
-            req.params.playerId,
-            req.body.newName
-          ).catch((e) => e);
+          result = await Player.updateName(req.body.playerId, req.body.newName).catch((e) => e);
           if (result) {
             res.status(201).json({
               message: `New name '${req.body.newName}' succesfully modify in database.`,
@@ -69,7 +66,7 @@ module.exports = {
       }
     }
   },
-  
+
   // Player plays a game
   playOneGame: async (req, res) => {
     // if no playerid or empty return error.
@@ -78,7 +75,9 @@ module.exports = {
     } else {
       try {
         // Check if playerid in database
-        let checked = await Player.checkIfPlayerNr(req.params.playerId).catch((e) => e);
+        let checked = await Player.checkIfPlayerNr(req.params.playerId).catch(
+          (e) => e
+        );
         if (checked === false) {
           res.status(400).json({ message: "Sorry, PlayerId is not correct." });
         } else {
@@ -131,36 +130,42 @@ module.exports = {
     }
   },
 
- //Retrieve a single object
- findOne: async (req, res) => {
-  // if no playerid or empty return error.
-  if (!req.params.playerId) {
-    res.status(400).send({ message: "Sorry, playerNr needed to show data!" });
-  } else {
-    try {
-      // Check if playerid in database
-      let checked = await Player.checkIfPlayerNr(req.params.playerId).catch(
-        (e) => e
-      );
-      if (checked === false) {
-        res.status(400).json({ message: "Sorry, PlayerId is not correct." });
-      } else {
-        // Update playername
-        let data = await Player.findByNr(req.params.playerId).catch((e) => e);
-        if (data) {
-          res.status(200).send(data);
+  // Retrieve all scores from one player.
+  findOne: async (req, res) => {
+    // if no playerid or empty return error.
+    if (!req.params.playerId) {
+      res.status(400).send({ message: "Sorry, playerNr needed to show data!" });
+    } else {
+      try {
+        // Check if playerid in database
+        let checked = await Player.checkIfPlayerNr(req.params.playerId).catch((e) => e);
+        if (checked === false) {
+          res.status(400).json({ message: "Sorry, PlayerId is not correct." });
         } else {
-          res.status(404).json({
-            message: "Sorry, Name could not be updated!",
-          });
+          // Update playername
+          let data = await Player.findByNr(req.params.playerId).catch((e) => e);
+          if (data) {
+            res.status(200).send(data);
+          } else {
+            res.status(404).json({
+              message: "Sorry, No data available",
+            });
+          }
         }
+      } catch (e) {
+        res.status(500).json({ message: e });
       }
+    }
+  },
+  // Retrieve Ranking of all players
+  findRanking: async (req, res) => {
+    try {
+      const results = await Player.getRankingAll();
+      res.status(200).send(results);
     } catch (e) {
       res.status(500).json({ message: e });
     }
-  }
-},
-
+  },
   /*  
 
 
@@ -174,7 +179,7 @@ module.exports = {
       res.status(400).json({ message: "Sorry, PlayerId is not correct." });
     } else {
       try {
-        const results = await Game.getAllScoresFromPlayer(req.body.playerId);
+        const results = await Player.getAllScoresFromPlayer(req.body.playerId);
         res.status(200).json(results);
       } catch (e) {
         res.status(500).json({ message: e });
@@ -182,20 +187,12 @@ module.exports = {
     }
   },
 
-  // Retrieve Ranking of all players
-  findRanking: async (req, res) => {
-    try {
-      const results = await Game.getRanking();
-      res.status(200).send(results);
-    } catch (e) {
-      res.status(500).json({ message: e });
-    }
-  },
+  
 
   // Retrieve best player
   findWorst: async (req, res) => {
     try {
-      const results = await Game.findLoser();
+      const results = await Player.findLoser();
       res.status(200).send(results);
     } catch (e) {
       console.log(e.message);
@@ -206,7 +203,7 @@ module.exports = {
   // Retrieve best player
   findBest: async (req, res) => {
     try {
-      const results = await Game.findWinner();
+      const results = await Player.findWinner();
       res.status(201).send(results);
     } catch (e) {
       console.log(e.message);

@@ -25,10 +25,10 @@ class Player {
   // Create new Player after counting how many palyer to assign to idNr.
   static async newPlayer(playerName) {
     const player = new GamePlayer({
-      playerId: await GamePlayer.find().countDocuments() + 1, // add user index
+      playerId: (await GamePlayer.find().countDocuments()) + 1, // add user index
       nickName: `${playerName}`,
     });
-    console.log(player);
+    //console.log(player);
     try {
       const res = await player.save();
       return res;
@@ -42,13 +42,10 @@ class Player {
     try {
       let rows = await GamePlayer.find();
       // If no data in database
-      if (Object.keys(rows).length === 0 ){
-        let string = "Database empty";
-        return string;
-      }else{
-        return rows;
+      if (Object.keys(rows).length === 0) {
+        return "Database empty!";
       }
-      
+      return rows;
     } catch (error) {
       return error;
     }
@@ -96,8 +93,6 @@ class Player {
     }
   }
 
-  
-
   //Delete all score of a single player
   static async deleteGames(playerId) {
     try {
@@ -114,12 +109,43 @@ class Player {
 
   //Retrieve a single object
   static async findByNr(number) {
-    console.log(number)
     try {
-      let res = await GamePlayer.findOne({playerId: number},
-               { playerId: 1, nickName:1,  games: 1 }
+      let res = await GamePlayer.findOne(
+        { playerId: number },
+        {
+          _id: 0,
+          playerId: 1,
+          nickName: 1,
+          games: { score: 1, result: 1, gameDate: 1 },
+        }
       );
       return res;
+    } catch (error) {
+      return error;
+    }
+  }
+
+  // Retrieve Ranking of all players
+  static async getRankingAll() {
+    try {
+      let rows = await GamePlayer.find(
+        {},
+        { _id: 0, playerId: 1, nickName: 1, games: { score: 1, gameDate: 1 } }, function (err, row) {
+          let counter = 0;
+          let games = null;
+          row.forEach(r => {
+            console.log("Players Name: " + r.nickName)
+            console.log("juegos realizados " +  r.games.length)
+            games = r.games;
+            games.forEach(game => {if (game.score > 7) console.log("score "+ game.score)})
+          })
+      });
+      // If no data in database
+      //console.log(rows)
+      if (Object.keys(rows).length === 0) {
+        return "No data found!";
+      }
+      return rows;
     } catch (error) {
       return error;
     }
