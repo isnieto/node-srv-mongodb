@@ -1,6 +1,7 @@
 // Load modules: model for database and functions for the gameplay
 const GamePlayer = require("./gameplay.model.js");
 const conn = require("../config/db.connection");
+const Services = require("../services/games.services");
 
 //  Player class and use the database connection above to add  CRUD methods:
 class Player {
@@ -125,34 +126,21 @@ class Player {
     }
   }
 
+  ///////////
+
   // Retrieve Ranking of all players
   static async getRankingAll() {
     try {
-      let rows = await GamePlayer.find(
+      const docs = await GamePlayer.find(
         {},
-        { _id: 0, playerId: 1, nickName: 1, games: { score: 1, gameDate: 1 } },
-        function (err, row) {
-          let counter = 0;
-          let games = null;
-          row.forEach((r) => {
-            console.log("Players Name: " + r.nickName);
-            console.log("juegos realizados " + r.games.length);
-            games = r.games;
-            games.forEach((game) => {
-              if (game.score > 7) {
-                counter++;
-                console.log("ganados " + counter);
-              }
-            });
-          });
-        }
+        { _id: 0, playerId: 1, nickName: 1, games: { score: 1, gameDate: 1 } }
       );
+      const results = await Services.getRanking( docs);
       // If no data in database
-      //console.log(rows)
-      if (Object.keys(rows).length === 0) {
+      if (Object.keys(docs).length === 0) {
         return "No data found!";
       }
-      return rows;
+      return results;
     } catch (error) {
       return error;
     }

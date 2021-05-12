@@ -1,5 +1,5 @@
 const Player = require("../models/player.model.js");
-const playGame = require("../services/games.services.js");
+const Services = require("../services/games.services.js");
 
 // Retrieve all games from the database.
 
@@ -82,7 +82,7 @@ module.exports = {
           res.status(400).json({ message: "Sorry, PlayerId is not correct." });
         } else {
           let playerId = req.params.playerId;
-          let results = await playGame();
+          let results = await Services.playGame();
           await Player.addScore(playerId, results);
           res.status(201).json({ message: "New game added!" });
         }
@@ -161,6 +161,7 @@ module.exports = {
   findRanking: async (req, res) => {
     try {
       const results = await Player.getRankingAll();
+      //console.log("devuelve result" + results)
       res.status(200).send(results);
     } catch (e) {
       res.status(500).json({ message: e });
