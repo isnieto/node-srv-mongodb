@@ -130,16 +130,23 @@ class Player {
     try {
       let rows = await GamePlayer.find(
         {},
-        { _id: 0, playerId: 1, nickName: 1, games: { score: 1, gameDate: 1 } }, function (err, row) {
+        { _id: 0, playerId: 1, nickName: 1, games: { score: 1, gameDate: 1 } },
+        function (err, row) {
           let counter = 0;
           let games = null;
-          row.forEach(r => {
-            console.log("Players Name: " + r.nickName)
-            console.log("juegos realizados " +  r.games.length)
+          row.forEach((r) => {
+            console.log("Players Name: " + r.nickName);
+            console.log("juegos realizados " + r.games.length);
             games = r.games;
-            games.forEach(game => {if (game.score > 7) console.log("score "+ game.score)})
-          })
-      });
+            games.forEach((game) => {
+              if (game.score > 7) {
+                counter++;
+                console.log("ganados " + counter);
+              }
+            });
+          });
+        }
+      );
       // If no data in database
       //console.log(rows)
       if (Object.keys(rows).length === 0) {
