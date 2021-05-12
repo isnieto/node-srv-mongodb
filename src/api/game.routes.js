@@ -20,19 +20,17 @@ module.exports = (app) => {
   app.get("/players/", gameController.findAll);
 
   // Retrieve all scores from one player.
-   app.get("/players/:playerId/games", gameController.findOne);
+  app.get("/players/:playerId/games", gameController.findOne);
 
   // Retrieve average ranking of all  players
   app.get("/players/ranking/all", gameController.findRanking);
-   /* 
-
- 
 
   // Retrieve worst player
   app.get("/players/ranking/loser", gameController.findWorst);
 
-  // Retrieve best player
-  app.get("/players/ranking/winner", gameController.findBest); */
+  // Retrieve worst player
+  app.get("/players/ranking/best", gameController.findBest);
+
  
 
   // Page not available

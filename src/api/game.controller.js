@@ -157,6 +157,7 @@ module.exports = {
       }
     }
   },
+  
   // Retrieve Ranking of all players
   findRanking: async (req, res) => {
     try {
@@ -167,50 +168,27 @@ module.exports = {
       res.status(500).json({ message: e });
     }
   },
-  /*  
 
-
-  // Retrieve a single player score list
-  gamesAll: async (req, res) => {
-    let playerIdExist = false;
-    playerIdExist = await Player.checkIfIdExists(req.body.playerId).catch(
-      (e) => e
-    );
-    if (!playerIdExist) {
-      res.status(400).json({ message: "Sorry, PlayerId is not correct." });
-    } else {
-      try {
-        const results = await Player.getAllScoresFromPlayer(req.body.playerId);
-        res.status(200).json(results);
-      } catch (e) {
-        res.status(500).json({ message: e });
-      }
-    }
-  },
-
-  
-
-  // Retrieve best player
+  // Retrieve Ranking of worst player
   findWorst: async (req, res) => {
     try {
-      const results = await Player.findLoser();
+      const results = await Player.findWorstPlayer();
+      //console.log("devuelve result" + results)
       res.status(200).send(results);
     } catch (e) {
-      console.log(e.message);
-      res.sendStatus(500);
+      res.status(500).json({ message: e });
     }
   },
 
-  // Retrieve best player
+  // Retrieve Ranking of Best player
   findBest: async (req, res) => {
     try {
-      const results = await Player.findWinner();
-      res.status(201).send(results);
+      const results = await Player.findBestPlayer();
+      //console.log("devuelve result" + results)
+      res.status(200).send(results);
     } catch (e) {
-      console.log(e.message);
-      res.sendStatus(500);
+      res.status(500).json({ message: e });
     }
   },
 
-   */
 }; // End Module

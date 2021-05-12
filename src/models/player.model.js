@@ -145,6 +145,43 @@ class Player {
       return error;
     }
   }
+
+  // Retrieve Ranking of worst players
+  static async findBestPlayer() {
+    try {
+      const docs = await GamePlayer.find(
+        {},
+        { _id: 0, playerId: 1, nickName: 1, games: { score: 1, gameDate: 1 } }
+      );
+      const results = await Services.getRanking(docs);
+      // If no data in database
+      if (Object.keys(docs).length === 0) {
+        return "No data found!";
+      }
+      return results;
+    } catch (error) {
+      return error;
+    }
+  }
+
+  // Retrieve Ranking of worst players
+  static async findWorstPlayer() {
+    try {
+      const docs = await GamePlayer.find(
+        {},
+        { _id: 0, playerId: 1, nickName: 1, games: { score: 1 } }
+      );
+      const results = await Services.getRanking(docs);
+      // If no data in database
+      if (Object.keys(docs).length === 0) {
+        return "No data found!";
+      }
+      return results;
+    } catch (error) {
+      return error;
+    }
+  }
+
 } // END CLass Game
 
 // Export

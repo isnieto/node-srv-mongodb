@@ -27,4 +27,25 @@ module.exports = {
     });
     return ranking;
   },
+
+  // Take Query results and according to scores calculates winning averate and save in array
+  getRankingPlayer: async (docs) => {
+    let ranking = [];
+    docs.forEach((player) => {
+      let games = player.games;
+      if (games.length === 0) {
+        ranking.push({
+          nickName: player.nickName,
+          average: "no game played",
+        });
+      }
+      const result = games.filter((game) => game.score > 7);
+      // result contain winning games.
+      ranking.push({
+        nickName: player.nickName,
+        average: +Math.floor((result.length * 100) / games.length) + "%",
+      });
+    });
+    return ranking;
+  },
 };
