@@ -135,7 +135,7 @@ class Player {
         {},
         { _id: 0, playerId: 1, nickName: 1, games: { score: 1, gameDate: 1 } }
       );
-      const results = await Services.getRanking( docs);
+      const results = await Services.getRanking(docs);
       // If no data in database
       if (Object.keys(docs).length === 0) {
         return "No data found!";
@@ -171,7 +171,8 @@ class Player {
         {},
         { _id: 0, playerId: 1, nickName: 1, games: { score: 1 } }
       );
-      const results = await Services.getRanking(docs);
+      console.log("hasta aqui");
+      const results = await Services.getRankingPlayer(docs);
       // If no data in database
       if (Object.keys(docs).length === 0) {
         return "No data found!";
@@ -181,7 +182,6 @@ class Player {
       return error;
     }
   }
-
 } // END CLass Game
 
 // Export
