@@ -146,32 +146,13 @@ class Player {
     }
   }
 
-  // Retrieve Ranking of worst players
-  static async findBestPlayer() {
-    try {
-      const docs = await GamePlayer.find(
-        {},
-        { _id: 0, playerId: 1, nickName: 1, games: { score: 1, gameDate: 1 } }
-      );
-      const results = await Services.getRanking(docs);
-      // If no data in database
-      if (Object.keys(docs).length === 0) {
-        return "No data found!";
-      }
-      return results;
-    } catch (error) {
-      return error;
-    }
-  }
-
-  // Retrieve Ranking of worst players
+  // Retrieve Ranking of worst player
   static async findWorstPlayer() {
     try {
       const docs = await GamePlayer.find(
         {},
         { _id: 0, playerId: 1, nickName: 1, games: { score: 1 } }
       );
-      console.log("hasta aqui");
       const results = await Services.getRankingPlayer(docs);
       // If no data in database
       if (Object.keys(docs).length === 0) {
@@ -182,6 +163,25 @@ class Player {
       return error;
     }
   }
+
+    // Retrieve Ranking of Best player
+    static async findBestPlayer() {
+      try {
+        const docs = await GamePlayer.find(
+          {},
+          { _id: 0, playerId: 1, nickName: 1, games: { score: 1 } }
+        );
+        console.log("hasta aqui");
+        const results = await Services.getRankingPlayer(docs, true);
+        // If no data in database
+        if (Object.keys(docs).length === 0) {
+          return "No data found!";
+        }
+        return results;
+      } catch (error) {
+        return error;
+      }
+    }
 } // END CLass Game
 
 // Export
