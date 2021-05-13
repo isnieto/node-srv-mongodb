@@ -1,6 +1,5 @@
 // Load modules: model for database and functions for the gameplay
 const GamePlayer = require("./gameplay.model.js");
-const conn = require("../config/db.connection");
 const Services = require("../services/games.services");
 
 //  Player class and use the database connection above to add  CRUD methods:
@@ -125,8 +124,6 @@ class Player {
       return error;
     }
   }
-
-  ///////////
 
   // Retrieve Ranking of all players
   static async getRankingAll() {

@@ -1,13 +1,12 @@
-// Random a number between 0 and 12. Equal or more than 7 wins.
-
 module.exports = {
+  // Random a number between 0 and 12. Equal or more than 7 wins.
   playGame: async () => {
     let score = Math.floor(Math.random() * 12);
     let state = score > 7 ? true : false;
     return [score, state];
   },
 
-  // Take Query results and according to scores calculates winning averate and save in array
+  // Take Query results and according to scores calculates winning average and save in array of results
   getRanking: async (docs) => {
     let ranking = [];
     docs.forEach((player) => {
@@ -28,17 +27,18 @@ module.exports = {
     return ranking;
   },
 
-  // Take Query results and according to scores calculates winning average and save in array
-  getRankingPlayer: async (docs, type=false) => {
-    // if worstPlayer searched then average starts with 0 otherwise with 100
-    let rankingPlayer = {average:((!type)? 0 : 100)};
+  // Take Query results and according to parameters calculates worst and best average
+  getRankingPlayer: async (docs, type = false) => {
+    // if worstPlayer searched average starts with 0 otherwise with 100
+    let rankingPlayer = { average: !type ? 0 : 100 };
     docs.forEach((player) => {
       let games = player.games;
       if (games.length === 0) {
         return;
       }
+      // Filter winning games quantity.
       const result = games.filter((game) => game.score > 7);
-      // result contain winning games.
+      // Calculate  winning avergage games .
       let average = Math.floor((result.length * 100) / games.length);
       // if type true search for worst player otherwise for best
       if (type) {
