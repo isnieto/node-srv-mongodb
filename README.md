@@ -58,4 +58,4 @@ The project try to implement best practices following the following structure:
 Here's a list of the related projects where you can find similar exercises with using other technologies:
 
 - REST APi with NodeJS and MySQL: https://github.com/uzs7jf/node-rest-mysql
-- REST APi with NodeJS and MongoDB and JWT: [still in process]
+- REST APi with NodeJS and MongoDB and JWT: https://github.com/uzs7jf/node-rest-mongodb-JWT
