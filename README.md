@@ -31,6 +31,8 @@ Following features have been taken in considereation to build the API:
 
 ## Features
 
+For testing routes in Postman click following button: [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/bd5681fc9a698b4b3802)
+
 Methods	Urls	Actions
 * POST    /players     				        > Add/Create a new player
 * PUT     /players                    > Update/Modify the name of an existing 
