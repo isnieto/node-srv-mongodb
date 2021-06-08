@@ -11,6 +11,14 @@ Following features have been taken in considereation to build the API:
 - The software should be able to list all the players in the system, the success rate of each player and the average success rate of all the players in the system.
 - The software must respect the main design patterns.
 
+## Installation
+1. Install Node 14 or later. You can use the package manager of your choice. 
+2. Clone this repository.
+3. Run npm i to install the dependencies.
+4. Run npm start to start the badge server and the frontend dev server.
+5. API server can be tested with Postman. For routes see "Features".
+6. Enviromen variables are save in .env_template.
+
 ## Code style
 
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/feross/standard)
@@ -34,13 +42,7 @@ Methods	Urls	Actions
 * GET     /players/ranking/loser      > Retrieve best player average pencentage
 * GET     /players/ranking/winner     > Retrieve worst player average pencentage
 
-## Installation
-1. Install Node 14 or later. You can use the package manager of your choice. 
-2. Clone this repository.
-3. Run npm i to install the dependencies.
-4. Run npm start to start the badge server and the frontend dev server.
-5. API server can be tested with Postman. For routes see "Features".
-6. Enviromen variables are save in .env_template.
+
 
 ## Observations
 The project try to implement best practices following the following structure:
