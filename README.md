@@ -40,6 +40,7 @@ Methods	Urls	Actions
 3. Run npm i to install the dependencies.
 4. Run npm start to start the badge server and the frontend dev server.
 5. API server can be tested with Postman. For routes see "Features".
+6. Enviromen variables are save in .env_template.
 
 ## Observations
 The project try to implement best practices following the following structure:
