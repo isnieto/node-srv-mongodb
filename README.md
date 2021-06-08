@@ -14,8 +14,8 @@ Following features have been taken in considereation to build the API:
 ## Installation
 1. Install Node 14 or later. You can use the package manager of your choice. 
 2. Clone this repository.
-3. Run npm i to install the dependencies.
-4. Run npm start to start the badge server and the frontend dev server.
+3. Run 'npm i'  to install the dependencies.
+4. Run 'npm start' to start the badge server and the frontend dev server.
 5. API server can be tested with Postman. For routes see "Features".
 6. Enviromen variables are save in .env_template.
 
