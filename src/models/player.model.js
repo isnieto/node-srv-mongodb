@@ -168,7 +168,6 @@ class Player {
           {},
           { _id: 0, playerId: 1, nickName: 1, games: { score: 1 } }
         );
-        console.log("hasta aqui");
         const results = await Services.getRankingPlayer(docs, true);
         // If no data in database
         if (Object.keys(docs).length === 0) {
