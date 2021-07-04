@@ -123,6 +123,9 @@ module.exports = {
   findAll: async (req, res) => {
     try {
       let results = await Player.getAllPlayers();
+      if(!results) {
+        res.status(201).send(null);
+      }
       res.status(200).send(results);
     } catch (e) {
       res.status(500).json({ message: e });
@@ -161,7 +164,9 @@ module.exports = {
   findRanking: async (req, res) => {
     try {
       const results = await Player.getRankingAll();
-      //console.log("devuelve result" + results)
+      if(!results) {
+        res.status(201).send(null);
+      }
       res.status(200).send(results);
     } catch (e) {
       res.status(500).json({ message: e });
@@ -172,7 +177,9 @@ module.exports = {
   findWorst: async (req, res) => {
     try {
       const results = await Player.findWorstPlayer();
-      //console.log("devuelve result" + results)
+      if(!results) {
+        res.status(201).send(null);
+      }
       res.status(200).send(results);
     } catch (e) {
       res.status(500).json({ message: e });
@@ -183,7 +190,9 @@ module.exports = {
   findBest: async (req, res) => {
     try {
       const results = await Player.findBestPlayer();
-      //console.log("devuelve result" + results)
+      if(!results) {
+        res.status(201).send(null);
+      }
       res.status(200).send(results);
     } catch (e) {
       res.status(500).json({ message: e });

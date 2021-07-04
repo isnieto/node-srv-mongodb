@@ -28,7 +28,6 @@ class Player {
       playerId: (await GamePlayer.find().countDocuments()) + 1, // add user index
       nickName: `${playerName}`,
     });
-    //console.log(player);
     try {
       const res = await player.save();
       return res;
@@ -43,7 +42,7 @@ class Player {
       let rows = await GamePlayer.find();
       // If no data in database
       if (Object.keys(rows).length === 0) {
-        return "Database empty!";
+        return ;
       }
       return rows;
     } catch (error) {
@@ -135,7 +134,7 @@ class Player {
       const results = await Services.getRanking(docs);
       // If no data in database
       if (Object.keys(docs).length === 0) {
-        return "No data found!";
+        return ;
       }
       return results;
     } catch (error) {
@@ -153,7 +152,7 @@ class Player {
       const results = await Services.getRankingPlayer(docs);
       // If no data in database
       if (Object.keys(docs).length === 0) {
-        return "No data found!";
+        return;
       }
       return results;
     } catch (error) {
@@ -171,7 +170,7 @@ class Player {
         const results = await Services.getRankingPlayer(docs, true);
         // If no data in database
         if (Object.keys(docs).length === 0) {
-          return "No data found!";
+          return ;
         }
         return results;
       } catch (error) {
